@@ -15,7 +15,7 @@
           "error",
           {
             "type": "attribute",
-            "prefix": "killteam",
+            "prefix": "pokeapi",
             "style": "camelCase"
           }
         ],
@@ -23,7 +23,7 @@
           "error",
           {
             "type": "element",
-            "prefix": "killteam",
+            "prefix": "pokeapi",
             "style": "kebab-case"
           }
         ]

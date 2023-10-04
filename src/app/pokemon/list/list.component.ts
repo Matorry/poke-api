@@ -13,15 +13,19 @@ import { StateService } from 'src/services/state.service';
 export class ListComponent implements OnInit {
   pokeList: Pokemons;
   pokemons: Pokemon[];
+  totalPages: number;
+  currentPage: number;
   constructor(
     private repo: RepoPokemonsServiceService,
     private state: StateService
   ) {
     this.pokeList = {} as Pokemons;
     this.pokemons = [];
+    this.totalPages = 0;
+    this.currentPage = 1;
   }
   ngOnInit(): void {
-    const url = 'https://pokeapi.co/api/v2/pokemon?limit=150&offset=0';
+    const url = 'https://pokeapi.co/api/v2/pokemon?limit=20&offset=0';
     this.getPokelist(url);
   }
   getPokelist(url: string) {
@@ -30,6 +34,7 @@ export class ListComponent implements OnInit {
         this.state.setPokemonList(response);
         this.state.getPokemonList().subscribe((data) => (this.pokeList = data));
         this.getPokemons();
+        this.totalPages = Math.ceil(this.pokeList.count / 20);
       },
       error: (response) => {
         console.log(response);
@@ -44,8 +49,8 @@ export class ListComponent implements OnInit {
     });
 
     forkJoin(pokemonObservables).subscribe({
-      next: (responses) => {
-        this.pokemons = responses.sort((a, b) => a.id - b.id);
+      next: (pokemons) => {
+        this.pokemons = pokemons.sort((a, b) => a.id - b.id);
         this.state.setPokemons(this.pokemons);
       },
       error: (error) => {
@@ -55,9 +60,11 @@ export class ListComponent implements OnInit {
   }
 
   handleNext() {
-    if (this.pokeList.next) this.getPokelist(this.pokeList.next);
+    if (this.pokeList.next)
+      this.getPokelist(this.pokeList.next), this.currentPage++;
   }
   handlePrevious() {
-    if (this.pokeList.previous) this.getPokelist(this.pokeList.previous);
+    if (this.pokeList.previous)
+      this.getPokelist(this.pokeList.previous), this.currentPage--;
   }
 }

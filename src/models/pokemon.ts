@@ -10,14 +10,16 @@ type Ability = {
 export type Pokemon = {
   abilities: Ability[];
   id: number;
+  order: number;
   species: {
     name: string;
   };
   sprites: {
     other: {
-      nome: {
+      home: {
         front_default: string;
       };
     };
   };
+  types: [{ type: { name: string } }];
 };

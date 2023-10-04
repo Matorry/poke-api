@@ -1,0 +1,51 @@
+.pokeList {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 2vw;
+  .pokemon {
+    background-color: #f7f7f7;
+    box-shadow: 0 0 3rem -1rem rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border: 1px solid black;
+    width: 16vw;
+    gap: 1vh;
+    border-radius: 20px;
+    padding: 1vh;
+    isolation: isolate;
+    overflow: hidden;
+    img {
+      margin-top: 2rem;
+      width: 10vw;
+    }
+    .typeList {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      .type {
+        padding: 0.5rem;
+        border: 0.5px solid black;
+        border-radius: 50%;
+      }
+    }
+  }
+  .backCard {
+    position: absolute;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 6rem;
+    font-weight: 800;
+    z-index: -1;
+    color: #ececec;
+  }
+}

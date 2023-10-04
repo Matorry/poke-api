@@ -1,6 +1,19 @@
-div {
-  height: 83vh;
+.listContainer {
+  padding: 3vw;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+  .buttonContainer {
+    padding-top: 4vw;
+    gap: 10vw;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    button {
+      width: 10vw;
+      height: 3vh;
+    }
+  }
 }

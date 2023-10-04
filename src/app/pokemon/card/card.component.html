@@ -1,0 +1,13 @@
+<ul class="pokeList">
+  <li *ngFor="let item of pokemons" class="pokemon">
+    <img src={{item.sprites.other.home.front_default}} alt="Pokemon photo">
+    <span>{{item.species.name.toUpperCase()}}</span>
+    <span>{{item.id}}</span>
+    <span class="backCard">#{{item.id}}</span>
+    <div class="typeList">
+      <span *ngFor="let type of item.types" class="type">
+        {{type.type.name}}
+      </span>
+    </div>
+  </li>
+</ul>

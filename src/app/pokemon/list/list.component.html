@@ -1,3 +1,7 @@
-<div>
-  <p>LISTA AQUI</p>
+<div class="listContainer">
+  <app-card [pokemons]="pokemons"></app-card>
+  <div class="buttonContainer">
+    <button *ngIf="pokeList.previous" (click)="handlePrevious()">previous</button>
+    <button *ngIf="pokeList.next" (click)="handleNext()">next</button>
+  </div>
 </div>

@@ -1,0 +1,18 @@
+<div class="cardContainer">
+  <div *ngIf="pokemon" class="card">
+    <div>
+      <img src={{pokemon.sprites.other.dream_world.front_default}} alt={{pokemon.species.name}}>
+      <div class="types">
+        <span *ngFor="let type of pokemon.types" class={{type.type.name}}>{{type.type.name.toUpperCase()}}</span>
+      </div>
+    </div>
+    <div class="pokeInfo">
+      <span>NAME: {{pokemon.species.name.toUpperCase()}}</span>
+      <span>POKEDEX: {{pokemon.id}}</span>
+      <ul>ABILITIES:
+        <li *ngFor="let abilitie of pokemon.abilities"><a>{{abilitie.ability.name}}</a></li>
+      </ul>
+      <span>WEIGHT: {{pokemon.weight}}</span>
+    </div>
+  </div>
+</div>

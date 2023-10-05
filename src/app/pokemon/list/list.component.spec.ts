@@ -1,5 +1,6 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { of, throwError } from 'rxjs';
 import { Pokemon } from 'src/models/pokemon';
 import { Pokemons } from 'src/models/pokemons';
@@ -20,6 +21,7 @@ describe('Guiven the class ListComponent', () => {
     previous: null,
     results: [
       { url: 'https://pokeapi.co/api/v2/pokemon/1/', name: 'Bulbasaur' },
+      { url: 'https://pokeapi.co/api/v2/pokemon/2/', name: 'Ivisaur' },
     ],
   };
 
@@ -27,7 +29,7 @@ describe('Guiven the class ListComponent', () => {
     id: 1,
     order: 1,
     species: {
-      name: 'Bulbasaur',
+      name: '',
     },
     abilities: [],
     sprites: {
@@ -35,15 +37,39 @@ describe('Guiven the class ListComponent', () => {
         home: {
           front_default: '',
         },
+        dream_world: {
+          front_default: '',
+        },
       },
     },
     types: [{ type: { name: '' } }],
+    weight: 1,
+  };
+  const mockPokemon2: Pokemon = {
+    id: 1,
+    order: 1,
+    species: {
+      name: '',
+    },
+    abilities: [],
+    sprites: {
+      other: {
+        home: {
+          front_default: '',
+        },
+        dream_world: {
+          front_default: '',
+        },
+      },
+    },
+    types: [{ type: { name: '' } }],
+    weight: 1,
   };
   describe('When i instance ListComponent without errors', () => {
     beforeEach(async () => {
       TestBed.configureTestingModule({
         declarations: [ListComponent, CardComponent],
-        imports: [HttpClientTestingModule],
+        imports: [HttpClientTestingModule, RouterTestingModule],
         providers: [RepoPokemonsServiceService, StateService],
       }).compileComponents();
 
@@ -104,7 +130,7 @@ describe('Guiven the class ListComponent', () => {
     it('Then, should call getPokemons and update pokemons and state correctly', () => {
       component.getPokemons();
       expect(repoService.getAll).toHaveBeenCalled();
-      expect(component.pokemons).toEqual([mockPokemon1]);
+      expect(component.pokemons).toEqual([mockPokemon1, mockPokemon2]);
     });
   });
   describe('When i instance ListComponent with errors', () => {

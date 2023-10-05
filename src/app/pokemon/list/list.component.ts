@@ -6,7 +6,7 @@ import { RepoPokemonsServiceService } from 'src/services/repo.pokemons.service.s
 import { StateService } from 'src/services/state.service';
 
 @Component({
-  selector: 'app-list',
+  selector: 'pokeapi-app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
 })

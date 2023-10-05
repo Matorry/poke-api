@@ -19,7 +19,11 @@ export type Pokemon = {
       home: {
         front_default: string;
       };
+      dream_world: {
+        front_default: string;
+      };
     };
   };
   types: [{ type: { name: string } }];
+  weight: number;
 };

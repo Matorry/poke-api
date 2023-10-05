@@ -57,6 +57,14 @@ describe('Guiven the class PokemonDetailComponent', () => {
             },
             types: [{ type: { name: '' } }],
             weight: 1,
+            moves: [
+              {
+                move: {
+                  name: '',
+                  url: '',
+                },
+              },
+            ],
           },
           { id: 2 } as unknown as Pokemon,
         ])

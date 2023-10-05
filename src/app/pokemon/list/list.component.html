@@ -4,7 +4,7 @@
     <span>{{currentPage}}/{{totalPages}}</span>
     <button *ngIf="pokeList.next" (click)="handleNext()">next</button>
   </div>
-  <app-card [pokemons]="pokemons"></app-card>
+  <poke-api-app-card [pokemons]="pokemons"></poke-api-app-card>
   <div class="buttonContainer">
     <button *ngIf="pokeList.previous" (click)="handlePrevious()">previous</button>
     <span>{{currentPage}}/{{totalPages}}</span>

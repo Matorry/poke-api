@@ -1,13 +1,16 @@
 <ul class="pokeList">
+
   <li *ngFor="let item of pokemons" class="pokemon">
-    <img src={{item.sprites.other.home.front_default}} alt="Pokemon photo">
-    <span>{{item.species.name.toUpperCase()}}</span>
-    <span>{{item.id}}</span>
-    <span class="backCard">#{{item.id}}</span>
-    <div class="typeList">
-      <span *ngFor="let type of item.types" class={{type.type.name}}>
-        {{type.type.name.toUpperCase()}}
-      </span>
-    </div>
+    <a [routerLink]="['/pokemon', item.id]">
+      <img src={{item.sprites.other.dream_world.front_default}} alt="Pokemon photo">
+      <span>{{item.species.name.toUpperCase()}}</span>
+      <span>{{item.id}}</span>
+      <span class="backCard">#{{item.id}}</span>
+      <div class="typeList">
+        <span *ngFor="let type of item.types" class={{type.type.name}}>
+          {{type.type.name.toUpperCase()}}
+        </span>
+      </div>
+    </a>
   </li>
 </ul>

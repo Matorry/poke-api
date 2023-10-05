@@ -5,19 +5,20 @@ import {
 import { TestBed } from '@angular/core/testing';
 
 import { Ability } from 'src/models/ability';
+import { Evolution } from 'src/models/evolution';
 import { Pokemon } from 'src/models/pokemon';
 import { Pokemons } from 'src/models/pokemons';
-import { RepoPokemonsServiceService } from './repo.pokemons.service.service';
+import { RepoPokemonsService } from './repo.pokemons.service';
 
 describe('Given the class RepoPokemonsServiceService', () => {
-  let service: RepoPokemonsServiceService;
+  let service: RepoPokemonsService;
   let httpMock: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
     });
-    service = TestBed.inject(RepoPokemonsServiceService);
+    service = TestBed.inject(RepoPokemonsService);
     httpMock = TestBed.inject(HttpTestingController);
   });
   describe('When i instance his methods', () => {
@@ -54,6 +55,18 @@ describe('Given the class RepoPokemonsServiceService', () => {
       });
 
       const req = httpMock.expectOne('');
+      expect(req.request.method).toBe('GET');
+    });
+    it('Then should be call getEvolution', () => {
+      const mockEvolution = {} as unknown as Evolution;
+
+      service.getEvolution('1').subscribe((pokemon) => {
+        expect(pokemon).toEqual(mockEvolution);
+      });
+
+      const req = httpMock.expectOne(
+        'https://pokeapi.co/api/v2/evolution-chain/1/'
+      );
       expect(req.request.method).toBe('GET');
     });
   });

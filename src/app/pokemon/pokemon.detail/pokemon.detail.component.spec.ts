@@ -5,15 +5,15 @@ import { ActivatedRoute, convertToParamMap } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of, throwError } from 'rxjs';
 import { Pokemon } from 'src/models/pokemon';
-import { RepoPokemonsServiceService } from 'src/services/repo.pokemons.service.service';
+import { RepoPokemonsService } from 'src/services/repo.pokemons.service';
 import { StateService } from 'src/services/state.service';
-import { PokemonDetailComponent } from './pokemon-detail.component';
+import { PokemonDetailComponent } from './pokemon.detail.component';
 
 describe('Guiven the class PokemonDetailComponent', () => {
   let component: PokemonDetailComponent;
   let fixture: ComponentFixture<PokemonDetailComponent>;
   let stateService: StateService;
-  let repo: RepoPokemonsServiceService;
+  let repo: RepoPokemonsService;
   describe('When we instance it without errors', () => {
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -28,14 +28,14 @@ describe('Guiven the class PokemonDetailComponent', () => {
             },
           },
           StateService,
-          RepoPokemonsServiceService,
+          RepoPokemonsService,
         ],
         imports: [HttpClientTestingModule, RouterTestingModule],
       });
       fixture = TestBed.createComponent(PokemonDetailComponent);
       component = fixture.componentInstance;
       stateService = TestBed.inject(StateService);
-      repo = TestBed.inject(RepoPokemonsServiceService);
+      repo = TestBed.inject(RepoPokemonsService);
       spyOn(stateService, 'getPokemons').and.returnValue(
         of([
           {
@@ -60,6 +60,16 @@ describe('Guiven the class PokemonDetailComponent', () => {
             moves: [
               {
                 move: {
+                  name: '',
+                  url: '',
+                },
+              },
+            ],
+            stats: [
+              {
+                base_stat: 0,
+                effort: 0,
+                stat: {
                   name: '',
                   url: '',
                 },
@@ -118,14 +128,14 @@ describe('Guiven the class PokemonDetailComponent', () => {
             },
           },
           StateService,
-          RepoPokemonsServiceService,
+          RepoPokemonsService,
         ],
         imports: [HttpClientTestingModule, RouterTestingModule],
       });
       fixture = TestBed.createComponent(PokemonDetailComponent);
       component = fixture.componentInstance;
       stateService = TestBed.inject(StateService);
-      repo = TestBed.inject(RepoPokemonsServiceService);
+      repo = TestBed.inject(RepoPokemonsService);
       spyOn(console, 'log');
       const errorObservable = throwError('Simulated error');
       spyOn(stateService, 'getPokemons').and.returnValue(errorObservable);

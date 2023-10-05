@@ -11,6 +11,15 @@ export type Move = {
   move: { name: string; url: string };
 };
 
+type Stats = {
+  base_stat: number;
+  effort: number;
+  stat: {
+    name: string;
+    url: string;
+  };
+};
+
 export type Pokemon = {
   abilities: Ability[];
   id: number;
@@ -31,4 +40,5 @@ export type Pokemon = {
   types: [{ type: { name: string } }];
   weight: number;
   moves: Move[];
+  stats: Stats[];
 };

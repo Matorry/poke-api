@@ -4,15 +4,16 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { of, throwError } from 'rxjs';
 import { Pokemon } from 'src/models/pokemon';
 import { Pokemons } from 'src/models/pokemons';
-import { RepoPokemonsServiceService } from 'src/services/repo.pokemons.service.service';
+import { RepoPokemonsService } from 'src/services/repo.pokemons.service';
 import { StateService } from 'src/services/state.service';
 import { CardComponent } from '../card/card.component';
+import { PokemonFormComponent } from '../pokemon.form/pokemon.form.component';
 import { ListComponent } from './list.component';
 
 describe('Guiven the class ListComponent', () => {
   let component: ListComponent;
   let fixture: ComponentFixture<ListComponent>;
-  let repoService: RepoPokemonsServiceService;
+  let repoService: RepoPokemonsService;
   let stateService: StateService;
 
   const mockPokelist: Pokemons = {
@@ -52,19 +53,29 @@ describe('Guiven the class ListComponent', () => {
         },
       },
     ],
+    stats: [
+      {
+        base_stat: 0,
+        effort: 0,
+        stat: {
+          name: '',
+          url: '',
+        },
+      },
+    ],
   };
 
   describe('When i instance ListComponent without errors', () => {
     beforeEach(async () => {
       TestBed.configureTestingModule({
-        declarations: [ListComponent, CardComponent],
+        declarations: [ListComponent, CardComponent, PokemonFormComponent],
         imports: [HttpClientTestingModule, RouterTestingModule],
-        providers: [RepoPokemonsServiceService, StateService],
+        providers: [RepoPokemonsService, StateService],
       }).compileComponents();
 
       fixture = TestBed.createComponent(ListComponent);
       component = fixture.componentInstance;
-      repoService = TestBed.inject(RepoPokemonsServiceService);
+      repoService = TestBed.inject(RepoPokemonsService);
       stateService = TestBed.inject(StateService);
 
       spyOn(repoService, 'getAll').and.returnValue(of(mockPokelist));
@@ -118,14 +129,14 @@ describe('Guiven the class ListComponent', () => {
   describe('When i instance ListComponent with errors', () => {
     beforeEach(() => {
       TestBed.configureTestingModule({
-        declarations: [ListComponent, CardComponent],
+        declarations: [ListComponent, CardComponent, PokemonFormComponent],
         imports: [HttpClientTestingModule],
-        providers: [RepoPokemonsServiceService, StateService],
+        providers: [RepoPokemonsService, StateService],
       }).compileComponents();
 
       fixture = TestBed.createComponent(ListComponent);
       component = fixture.componentInstance;
-      repoService = TestBed.inject(RepoPokemonsServiceService);
+      repoService = TestBed.inject(RepoPokemonsService);
       stateService = TestBed.inject(StateService);
 
       spyOn(repoService, 'getAll').and.returnValue(

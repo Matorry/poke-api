@@ -1,0 +1,14 @@
+div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.buttonContainer {
+  display: flex;
+  align-items: flex-end;
+  .button {
+    align-self: flex-end;
+    cursor: pointer;
+  }
+}

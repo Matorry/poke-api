@@ -1,8 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ActivatedRoute, convertToParamMap } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 import { of, throwError } from 'rxjs';
 import { Pokemon } from 'src/models/pokemon';
+import { RepoPokemonsServiceService } from 'src/services/repo.pokemons.service.service';
 import { StateService } from 'src/services/state.service';
 import { PokemonDetailComponent } from './pokemon-detail.component';
 
@@ -10,6 +13,7 @@ describe('Guiven the class PokemonDetailComponent', () => {
   let component: PokemonDetailComponent;
   let fixture: ComponentFixture<PokemonDetailComponent>;
   let stateService: StateService;
+  let repo: RepoPokemonsServiceService;
   describe('When we instance it without errors', () => {
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -24,11 +28,14 @@ describe('Guiven the class PokemonDetailComponent', () => {
             },
           },
           StateService,
+          RepoPokemonsServiceService,
         ],
+        imports: [HttpClientTestingModule, RouterTestingModule],
       });
       fixture = TestBed.createComponent(PokemonDetailComponent);
       component = fixture.componentInstance;
       stateService = TestBed.inject(StateService);
+      repo = TestBed.inject(RepoPokemonsServiceService);
       spyOn(stateService, 'getPokemons').and.returnValue(
         of([
           {
@@ -54,12 +61,39 @@ describe('Guiven the class PokemonDetailComponent', () => {
           { id: 2 } as unknown as Pokemon,
         ])
       );
+      spyOn(stateService, 'getIsOpenModal');
+      spyOn(stateService, 'setIsOpenModal');
+      spyOn(repo, 'getAbility').and.returnValue(
+        of({
+          effect_entries: [
+            {
+              effect: '',
+              language: {
+                name: '',
+                url: '',
+              },
+              short_effect: '',
+            },
+          ],
+          id: 1,
+          is_main_series: true,
+          name: '',
+        })
+      );
       fixture.detectChanges();
     });
 
     it('Then, the component should create', () => {
       expect(component).toBeTruthy();
       expect(component.pokemon?.id).toBe(1);
+    });
+    it('Then, if i use openModal method setIsOpenModal should be called', () => {
+      component.openModal('');
+      expect(stateService.setIsOpenModal).toHaveBeenCalledWith(true);
+    });
+    it('Then, if i use closeModal method setIsOpenModal should be called', () => {
+      component.closeModal(false);
+      expect(stateService.setIsOpenModal).toHaveBeenCalledWith(false);
     });
   });
   describe('When we instance it with errors', () => {
@@ -76,18 +110,23 @@ describe('Guiven the class PokemonDetailComponent', () => {
             },
           },
           StateService,
+          RepoPokemonsServiceService,
         ],
+        imports: [HttpClientTestingModule, RouterTestingModule],
       });
       fixture = TestBed.createComponent(PokemonDetailComponent);
       component = fixture.componentInstance;
       stateService = TestBed.inject(StateService);
+      repo = TestBed.inject(RepoPokemonsServiceService);
       spyOn(console, 'log');
       const errorObservable = throwError('Simulated error');
       spyOn(stateService, 'getPokemons').and.returnValue(errorObservable);
+      spyOn(repo, 'getAbility').and.returnValue(errorObservable);
       fixture.detectChanges();
     });
 
     it('Then, the component should return error', () => {
+      expect(stateService.getPokemons).toHaveBeenCalled();
       expect(console.log).toHaveBeenCalledWith('Simulated error');
     });
   });

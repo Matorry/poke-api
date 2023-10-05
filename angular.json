@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "pokeapi": {
+    "poke-api": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -12,7 +12,7 @@
       },
       "root": "",
       "sourceRoot": "src",
-      "prefix": "pokeapi",
+      "prefix": "poke-api",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -58,10 +58,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "pokeapi:build:production"
+              "browserTarget": "poke-api:build:production"
             },
             "development": {
-              "browserTarget": "pokeapi:build:development"
+              "browserTarget": "poke-api:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -69,7 +69,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "pokeapi:build"
+            "browserTarget": "poke-api:build"
           }
         },
         "test": {

@@ -20,8 +20,8 @@ describe('Guiven the class ListComponent', () => {
     next: null,
     previous: null,
     results: [
-      { url: 'https://pokeapi.co/api/v2/pokemon/1/', name: 'Bulbasaur' },
-      { url: 'https://pokeapi.co/api/v2/pokemon/2/', name: 'Ivisaur' },
+      { url: 'https://poke-api.co/api/v2/pokemon/1/', name: 'Bulbasaur' },
+      { url: 'https://poke-api.co/api/v2/pokemon/2/', name: 'Ivisaur' },
     ],
   };
 
@@ -100,22 +100,22 @@ describe('Guiven the class ListComponent', () => {
     it('Then, should handleNext correctly', () => {
       spyOn(component, 'getPokelist').and.callThrough();
       component.pokeList = {
-        next: 'https://pokeapi.co/api/v2/pokemon?offset=2',
+        next: 'https://poke-api.co/api/v2/pokemon?offset=2',
       } as Pokemons;
       component.handleNext();
       expect(component.getPokelist).toHaveBeenCalledWith(
-        'https://pokeapi.co/api/v2/pokemon?offset=2'
+        'https://poke-api.co/api/v2/pokemon?offset=2'
       );
     });
 
     it('Then, should handlePrevious correctly', () => {
       spyOn(component, 'getPokelist').and.callThrough();
       component.pokeList = {
-        previous: 'https://pokeapi.co/api/v2/pokemon?offset=0',
+        previous: 'https://poke-api.co/api/v2/pokemon?offset=0',
       } as Pokemons;
       component.handlePrevious();
       expect(component.getPokelist).toHaveBeenCalledWith(
-        'https://pokeapi.co/api/v2/pokemon?offset=0'
+        'https://poke-api.co/api/v2/pokemon?offset=0'
       );
     });
 
@@ -171,7 +171,7 @@ describe('Guiven the class ListComponent', () => {
         next: null,
         previous: null,
         results: [
-          { url: 'https://pokeapi.co/api/v2/pokemon/1/', name: 'Bulbasaur' },
+          { url: 'https://poke-api.co/api/v2/pokemon/1/', name: 'Bulbasaur' },
         ],
       };
 

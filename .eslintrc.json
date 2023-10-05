@@ -15,7 +15,7 @@
           "error",
           {
             "type": "attribute",
-            "prefix": "pokeapi",
+            "prefix": "poke-api",
             "style": "camelCase"
           }
         ],
@@ -23,7 +23,7 @@
           "error",
           {
             "type": "element",
-            "prefix": "pokeapi",
+            "prefix": "poke-api",
             "style": "kebab-case"
           }
         ]

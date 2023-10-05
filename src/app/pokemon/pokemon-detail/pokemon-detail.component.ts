@@ -4,7 +4,7 @@ import { Pokemon } from 'src/models/pokemon';
 import { StateService } from 'src/services/state.service';
 
 @Component({
-  selector: 'pokeapi-pokemon-detail',
+  selector: 'poke-api-pokemon-detail',
   templateUrl: './pokemon-detail.component.html',
   styleUrls: ['./pokemon-detail.component.scss'],
 })

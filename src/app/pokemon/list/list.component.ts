@@ -6,7 +6,7 @@ import { RepoPokemonsServiceService } from 'src/services/repo.pokemons.service.s
 import { StateService } from 'src/services/state.service';
 
 @Component({
-  selector: 'pokeapi-app-list',
+  selector: 'poke-api-app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
 })
@@ -25,7 +25,7 @@ export class ListComponent implements OnInit {
     this.currentPage = 1;
   }
   ngOnInit(): void {
-    const url = 'https://pokeapi.co/api/v2/pokemon?limit=20&offset=0';
+    const url = 'https://poke-api.co/api/v2/pokemon?limit=20&offset=0';
     this.getPokelist(url);
   }
   getPokelist(url: string) {

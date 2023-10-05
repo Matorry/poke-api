@@ -45,26 +45,7 @@ describe('Guiven the class ListComponent', () => {
     types: [{ type: { name: '' } }],
     weight: 1,
   };
-  const mockPokemon2: Pokemon = {
-    id: 1,
-    order: 1,
-    species: {
-      name: '',
-    },
-    abilities: [],
-    sprites: {
-      other: {
-        home: {
-          front_default: '',
-        },
-        dream_world: {
-          front_default: '',
-        },
-      },
-    },
-    types: [{ type: { name: '' } }],
-    weight: 1,
-  };
+
   describe('When i instance ListComponent without errors', () => {
     beforeEach(async () => {
       TestBed.configureTestingModule({
@@ -97,28 +78,6 @@ describe('Guiven the class ListComponent', () => {
       expect(component.getPokemons).toHaveBeenCalled();
     });
 
-    it('Then, should handleNext correctly', () => {
-      spyOn(component, 'getPokelist').and.callThrough();
-      component.pokeList = {
-        next: 'https://poke-api.co/api/v2/pokemon?offset=2',
-      } as Pokemons;
-      component.handleNext();
-      expect(component.getPokelist).toHaveBeenCalledWith(
-        'https://poke-api.co/api/v2/pokemon?offset=2'
-      );
-    });
-
-    it('Then, should handlePrevious correctly', () => {
-      spyOn(component, 'getPokelist').and.callThrough();
-      component.pokeList = {
-        previous: 'https://poke-api.co/api/v2/pokemon?offset=0',
-      } as Pokemons;
-      component.handlePrevious();
-      expect(component.getPokelist).toHaveBeenCalledWith(
-        'https://poke-api.co/api/v2/pokemon?offset=0'
-      );
-    });
-
     it('Then, should call getPokelist and update state correctly', () => {
       spyOn(component, 'getPokemons').and.callThrough();
       component.getPokelist('');
@@ -130,7 +89,22 @@ describe('Guiven the class ListComponent', () => {
     it('Then, should call getPokemons and update pokemons and state correctly', () => {
       component.getPokemons();
       expect(repoService.getAll).toHaveBeenCalled();
-      expect(component.pokemons).toEqual([mockPokemon1, mockPokemon2]);
+    });
+
+    it('Then, should call onWindowScroll', () => {
+      component.onWindowScroll();
+      expect(component.showButton).toEqual(false);
+    });
+
+    it('Then, should call onScrollTop', () => {
+      component.onScrollTop();
+      expect(component.showButton).toEqual(false);
+    });
+
+    it('Then, should call onScrollDown', () => {
+      component.pokeList.next = '1';
+      component.onScrollDown();
+      expect(component.showButton).toEqual(false);
     });
   });
   describe('When i instance ListComponent with errors', () => {

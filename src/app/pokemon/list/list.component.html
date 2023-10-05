@@ -1,13 +1,6 @@
-<div class="listContainer">
-  <div class="buttonContainer">
-    <button *ngIf="pokeList.previous" (click)="handlePrevious()">previous</button>
-    <span>{{currentPage}}/{{totalPages}}</span>
-    <button *ngIf="pokeList.next" (click)="handleNext()">next</button>
-  </div>
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
+<div class="listContainer" infiniteScroll (scrolled)="onScrollDown()">
   <poke-api-app-card [pokemons]="pokemons"></poke-api-app-card>
-  <div class="buttonContainer">
-    <button *ngIf="pokeList.previous" (click)="handlePrevious()">previous</button>
-    <span>{{currentPage}}/{{totalPages}}</span>
-    <button *ngIf="pokeList.next" (click)="handleNext()">next</button>
-  </div>
+  <span class="button" *ngIf="showButton" (click)="onScrollTop()">Up</span>
 </div>

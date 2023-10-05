@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "finalProjectFront": {
+    "pokeapi": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -58,10 +58,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "finalProjectFront:build:production"
+              "browserTarget": "pokeapi:build:production"
             },
             "development": {
-              "browserTarget": "finalProjectFront:build:development"
+              "browserTarget": "pokeapi:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -69,7 +69,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "finalProjectFront:build"
+            "browserTarget": "pokeapi:build"
           }
         },
         "test": {

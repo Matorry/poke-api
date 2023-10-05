@@ -1,3 +1,5 @@
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
 <div class="cardContainer">
   <div *ngIf="pokemon" class="card">
     <div>
@@ -10,7 +12,9 @@
       <span>NAME: {{pokemon.species.name.toUpperCase()}}</span>
       <span>POKEDEX: {{pokemon.id}}</span>
       <ul>ABILITIES:
-        <li *ngFor="let abilitie of pokemon.abilities"><a>{{abilitie.ability.name}}</a></li>
+        <li *ngFor="let abilitie of pokemon.abilities" (click)="openModal(abilitie.ability.url)">
+          {{abilitie.ability.name}}
+        </li>
       </ul>
       <span>WEIGHT: {{pokemon.weight}}</span>
     </div>

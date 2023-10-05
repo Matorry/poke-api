@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Ability } from 'src/models/ability';
 import { Pokemon } from 'src/models/pokemon';
 import { Pokemons } from 'src/models/pokemons';
 
@@ -14,5 +15,8 @@ export class RepoPokemonsServiceService {
   }
   get(url: string): Observable<Pokemon> {
     return this.http.get(url, {}) as Observable<Pokemon>;
+  }
+  getAbility(url: string): Observable<Ability> {
+    return this.http.get(url, {}) as Observable<Ability>;
   }
 }

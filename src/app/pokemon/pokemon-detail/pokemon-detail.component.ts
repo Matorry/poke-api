@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Pokemon } from 'src/models/pokemon';
+import { RepoPokemonsServiceService } from 'src/services/repo.pokemons.service.service';
 import { StateService } from 'src/services/state.service';
 
 @Component({
@@ -11,15 +12,24 @@ import { StateService } from 'src/services/state.service';
 export class PokemonDetailComponent implements OnInit {
   pokemon: Pokemon | undefined;
   id: string | null;
+  isOpen: boolean;
+  modalData: object;
 
   constructor(
+    private repo: RepoPokemonsServiceService,
     private stateService: StateService,
     private route: ActivatedRoute
   ) {
+    this.modalData = {};
+    this.isOpen = false;
     this.id = this.route.snapshot.paramMap.get('id');
+    this.stateService.getIsOpenModal().subscribe({
+      next: (response) => (this.isOpen = response),
+    });
   }
 
   ngOnInit(): void {
+    this.stateService.setIsOpenModal(false);
     if (this.id) {
       this.stateService.getPokemons().subscribe({
         next: (response: Pokemon[]) => {
@@ -32,5 +42,15 @@ export class PokemonDetailComponent implements OnInit {
         },
       });
     }
+  }
+  openModal(url: string) {
+    this.stateService.setIsOpenModal(true);
+    this.repo.getAbility(url).subscribe({
+      next: (resp) => ((this.modalData = resp), console.log(resp)),
+      error: (resp) => console.log(resp),
+    });
+  }
+  closeModal() {
+    this.stateService.setIsOpenModal(false);
   }
 }

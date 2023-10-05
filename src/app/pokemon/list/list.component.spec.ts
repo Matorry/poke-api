@@ -44,6 +44,14 @@ describe('Guiven the class ListComponent', () => {
     },
     types: [{ type: { name: '' } }],
     weight: 1,
+    moves: [
+      {
+        move: {
+          name: '',
+          url: '',
+        },
+      },
+    ],
   };
 
   describe('When i instance ListComponent without errors', () => {

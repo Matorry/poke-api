@@ -17,6 +17,11 @@
         </li>
       </ul>
       <span>WEIGHT: {{pokemon.weight}}</span>
+      <select name="moves" #yourMoves (change)="openModal(yourMoves.value)">
+        <option disabled="disabled" selected="true">Show pokemon moves</option>
+        <option value="{{move.move.url}}" *ngFor="let move of pokemon.moves" option>
+          {{move.move.name}}</option>
+      </select>
     </div>
     <poke-api-modal *ngIf="this.isOpen" [ability]="modalData" (isOpen)="closeModal($event)"></poke-api-modal>
   </div>

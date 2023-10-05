@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ActivatedRoute, convertToParamMap } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 import { of, throwError } from 'rxjs';
 import { Pokemon } from 'src/models/pokemon';
 import { RepoPokemonsServiceService } from 'src/services/repo.pokemons.service.service';
@@ -29,7 +30,7 @@ describe('Guiven the class PokemonDetailComponent', () => {
           StateService,
           RepoPokemonsServiceService,
         ],
-        imports: [HttpClientTestingModule],
+        imports: [HttpClientTestingModule, RouterTestingModule],
       });
       fixture = TestBed.createComponent(PokemonDetailComponent);
       component = fixture.componentInstance;
@@ -91,7 +92,7 @@ describe('Guiven the class PokemonDetailComponent', () => {
       expect(stateService.setIsOpenModal).toHaveBeenCalledWith(true);
     });
     it('Then, if i use closeModal method setIsOpenModal should be called', () => {
-      component.closeModal();
+      component.closeModal(false);
       expect(stateService.setIsOpenModal).toHaveBeenCalledWith(false);
     });
   });
@@ -111,7 +112,7 @@ describe('Guiven the class PokemonDetailComponent', () => {
           StateService,
           RepoPokemonsServiceService,
         ],
-        imports: [HttpClientTestingModule],
+        imports: [HttpClientTestingModule, RouterTestingModule],
       });
       fixture = TestBed.createComponent(PokemonDetailComponent);
       component = fixture.componentInstance;
@@ -126,11 +127,6 @@ describe('Guiven the class PokemonDetailComponent', () => {
 
     it('Then, the component should return error', () => {
       expect(stateService.getPokemons).toHaveBeenCalled();
-      expect(console.log).toHaveBeenCalledWith('Simulated error');
-    });
-    it('Then, the repo.getAbility should return error', () => {
-      component.openModal('');
-      expect(repo.getAbility).toHaveBeenCalledWith('');
       expect(console.log).toHaveBeenCalledWith('Simulated error');
     });
   });

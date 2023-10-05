@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { concat } from 'rxjs';
+import { Ability } from 'src/models/ability';
 import { Pokemon } from 'src/models/pokemon';
 import { RepoPokemonsServiceService } from 'src/services/repo.pokemons.service.service';
 import { StateService } from 'src/services/state.service';
@@ -10,17 +12,16 @@ import { StateService } from 'src/services/state.service';
   styleUrls: ['./pokemon-detail.component.scss'],
 })
 export class PokemonDetailComponent implements OnInit {
+  @Input() isOpen: boolean;
   pokemon: Pokemon | undefined;
   id: string | null;
-  isOpen: boolean;
-  modalData: object;
+  modalData!: Ability;
 
   constructor(
     private repo: RepoPokemonsServiceService,
     private stateService: StateService,
     private route: ActivatedRoute
   ) {
-    this.modalData = {};
     this.isOpen = false;
     this.id = this.route.snapshot.paramMap.get('id');
     this.stateService.getIsOpenModal().subscribe({
@@ -44,13 +45,21 @@ export class PokemonDetailComponent implements OnInit {
     }
   }
   openModal(url: string) {
+    this.getAbility(url);
     this.stateService.setIsOpenModal(true);
-    this.repo.getAbility(url).subscribe({
-      next: (resp) => ((this.modalData = resp), console.log(resp)),
-      error: (resp) => console.log(resp),
+  }
+  getAbility(url: string) {
+    const abilityObserbable = this.repo.getAbility(url);
+    concat(abilityObserbable).subscribe({
+      next: (modalResponse) => {
+        this.modalData = modalResponse;
+        this.modalData.effect_entries = modalResponse.effect_entries.filter(
+          (element) => element.language.name === 'en'
+        );
+      },
     });
   }
-  closeModal() {
-    this.stateService.setIsOpenModal(false);
+  closeModal(ev: boolean) {
+    this.stateService.setIsOpenModal(ev);
   }
 }

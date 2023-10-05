@@ -1,1 +1,10 @@
-<p>modal works!</p>
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
+<div class="buttonContainer">
+  <span (click)="closeModal()" class="button">🚪</span>
+</div>
+<div *ngIf="ability">
+  <span>{{ability.name.toUpperCase()}}</span>
+  <p>{{ability.effect_entries[0].effect}}</p>
+  <p>{{ability.effect_entries[0].short_effect}}</p>
+</div>

@@ -18,5 +18,7 @@
       </ul>
       <span>WEIGHT: {{pokemon.weight}}</span>
     </div>
+    <poke-api-modal *ngIf="this.isOpen" [ability]="modalData" (isOpen)="closeModal($event)"></poke-api-modal>
   </div>
+  <a [routerLink]="'/pokemons'" class="button">Back</a>
 </div>

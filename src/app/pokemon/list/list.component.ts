@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, HostListener, Inject, OnInit } from '@angular/core';
 import { forkJoin } from 'rxjs';
 import { Pokemon } from 'src/models/pokemon';
 import { Pokemons } from 'src/models/pokemons';
@@ -13,16 +14,22 @@ import { StateService } from 'src/services/state.service';
 export class ListComponent implements OnInit {
   pokeList: Pokemons;
   pokemons: Pokemon[];
-  totalPages: number;
-  currentPage: number;
+  showButton = false;
+  scrollHeigth = 500;
   constructor(
+    @Inject(DOCUMENT)
+    private document: Document,
     private repo: RepoPokemonsServiceService,
     private state: StateService
   ) {
     this.pokeList = {} as Pokemons;
     this.pokemons = [];
-    this.totalPages = 0;
-    this.currentPage = 1;
+  }
+  @HostListener('window:scroll')
+  onWindowScroll(): void {
+    const yOffSet = window.scrollY;
+    const scrollTop = this.document.documentElement.scrollTop;
+    this.showButton = (yOffSet | scrollTop) > this.scrollHeigth;
   }
   ngOnInit(): void {
     const url = 'https://pokeapi.co/api/v2/pokemon?limit=20&offset=0';
@@ -34,7 +41,6 @@ export class ListComponent implements OnInit {
         this.state.setPokemonList(response);
         this.state.getPokemonList().subscribe((data) => (this.pokeList = data));
         this.getPokemons();
-        this.totalPages = Math.ceil(this.pokeList.count / 20);
       },
       error: (response) => {
         console.log(response);
@@ -43,14 +49,15 @@ export class ListComponent implements OnInit {
   }
 
   getPokemons() {
-    this.pokemons = [];
     const pokemonObservables = this.pokeList.results.map((element) => {
       return this.repo.get(element.url);
     });
 
     forkJoin(pokemonObservables).subscribe({
       next: (pokemons) => {
-        this.pokemons = pokemons.sort((a, b) => a.id - b.id);
+        this.pokemons = this.pokemons.concat(
+          pokemons.sort((a, b) => a.id - b.id)
+        );
         this.state.setPokemons(this.pokemons);
       },
       error: (error) => {
@@ -59,12 +66,11 @@ export class ListComponent implements OnInit {
     });
   }
 
-  handleNext() {
-    if (this.pokeList.next)
-      this.getPokelist(this.pokeList.next), this.currentPage++;
+  onScrollTop(): void {
+    this.document.documentElement.scrollTop = 0;
   }
-  handlePrevious() {
-    if (this.pokeList.previous)
-      this.getPokelist(this.pokeList.previous), this.currentPage--;
+
+  onScrollDown(): void {
+    if (this.pokeList.next) this.getPokelist(this.pokeList.next);
   }
 }

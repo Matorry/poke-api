@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Ability } from 'src/models/ability';
+import { Ability } from 'src/app/models/ability';
 
 @Component({
   selector: 'poke-api-modal',

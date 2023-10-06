@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
-import { Pokemon } from 'src/models/pokemon';
-import { Pokemons } from 'src/models/pokemons';
+import { Pokemon } from 'src/app/models/pokemon';
+import { Pokemons } from 'src/app/models/pokemons';
 import { StateService } from './state.service';
 
 describe('Given the class StateService', () => {
@@ -37,6 +37,14 @@ describe('Given the class StateService', () => {
     it('Then, should return the pokemon list', () => {
       const pokemon = {} as unknown as Pokemons;
       service.setPokemonList(pokemon);
+      let pokemons: Pokemons = {} as Pokemons;
+      service.getPokemonList().subscribe((res) => (pokemons = res));
+      expect(pokemons).toEqual(pokemon);
+    });
+
+    it('Then, should reset the pokemon list', () => {
+      const pokemon = {} as unknown as Pokemons;
+      service.setPokemonList();
       let pokemons: Pokemons = {} as Pokemons;
       service.getPokemonList().subscribe((res) => (pokemons = res));
       expect(pokemons).toEqual(pokemon);

@@ -1,10 +1,9 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, HostListener, Inject, OnInit } from '@angular/core';
-import { forkJoin } from 'rxjs';
-import { Pokemon } from 'src/models/pokemon';
-import { Pokemons } from 'src/models/pokemons';
-import { RepoPokemonsService } from 'src/services/repo.pokemons.service';
-import { StateService } from 'src/services/state.service';
+import { Pokemon } from 'src/app/models/pokemon';
+import { Pokemons } from 'src/app/models/pokemons';
+import { PokemonsService } from 'src/app/services/pokemons.service';
+import { StateService } from 'src/app/services/state.service';
 
 @Component({
   selector: 'poke-api-pokemon.list',
@@ -19,11 +18,13 @@ export class ListComponent implements OnInit {
   constructor(
     @Inject(DOCUMENT)
     private document: Document,
-    private repo: RepoPokemonsService,
-    private state: StateService
+    private state: StateService,
+    private pokeService: PokemonsService
   ) {
     this.pokeList = {} as Pokemons;
     this.pokemons = [];
+    this.state.getPokemons().subscribe((data) => (this.pokemons = data));
+    this.state.getPokemonList().subscribe((data) => (this.pokeList = data));
   }
   @HostListener('window:scroll')
   onWindowScroll(): void {
@@ -31,39 +32,9 @@ export class ListComponent implements OnInit {
     const scrollTop = this.document.documentElement.scrollTop;
     this.showButton = (yOffSet | scrollTop) > this.scrollHeigth;
   }
-  ngOnInit(): void {
+  ngOnInit() {
     const url = 'https://pokeapi.co/api/v2/pokemon?limit=20&offset=0';
-    this.getPokelist(url);
-  }
-  getPokelist(url: string) {
-    this.repo.getAll(url).subscribe({
-      next: (response) => {
-        this.state.setPokemonList(response);
-        this.state.getPokemonList().subscribe((data) => (this.pokeList = data));
-        this.getPokemons();
-      },
-      error: (response) => {
-        console.log(response);
-      },
-    });
-  }
-
-  getPokemons() {
-    const pokemonObservables = this.pokeList.results.map((element) => {
-      return this.repo.get(element.url);
-    });
-
-    forkJoin(pokemonObservables).subscribe({
-      next: (pokemons) => {
-        this.pokemons = this.pokemons.concat(
-          pokemons.sort((a, b) => a.id - b.id)
-        );
-        this.state.setPokemons(this.pokemons);
-      },
-      error: (error) => {
-        console.log(error);
-      },
-    });
+    this.pokeService.getPokelist(url);
   }
 
   onScrollTop(): void {
@@ -71,6 +42,6 @@ export class ListComponent implements OnInit {
   }
 
   onScrollDown(): void {
-    if (this.pokeList.next) this.getPokelist(this.pokeList.next);
+    if (this.pokeList.next) this.pokeService.getPokelist(this.pokeList.next);
   }
 }

@@ -1,24 +1,23 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { of, throwError } from 'rxjs';
-import { Pokemon } from 'src/models/pokemon';
-import { Pokemons } from 'src/models/pokemons';
-import { RepoPokemonsService } from 'src/services/repo.pokemons.service';
-import { StateService } from 'src/services/state.service';
+import { of } from 'rxjs';
+import { Pokemons } from 'src/app/models/pokemons';
+import { PokemonsService } from 'src/app/services/pokemons.service';
+import { StateService } from 'src/app/services/state.service';
 import { CardComponent } from '../card/card.component';
 import { PokemonFormComponent } from '../pokemon.form/pokemon.form.component';
 import { ListComponent } from './list.component';
 
-describe('Guiven the class ListComponent', () => {
+describe('Given the class ListComponent', () => {
   let component: ListComponent;
   let fixture: ComponentFixture<ListComponent>;
-  let repoService: RepoPokemonsService;
   let stateService: StateService;
+  let pokemonsService: PokemonsService;
 
   const mockPokelist: Pokemons = {
     count: 2,
-    next: null,
+    next: '1',
     previous: null,
     results: [
       { url: 'https://poke-api.co/api/v2/pokemon/1/', name: 'Bulbasaur' },
@@ -26,62 +25,19 @@ describe('Guiven the class ListComponent', () => {
     ],
   };
 
-  const mockPokemon1: Pokemon = {
-    id: 1,
-    order: 1,
-    species: {
-      name: '',
-    },
-    abilities: [],
-    sprites: {
-      other: {
-        home: {
-          front_default: '',
-        },
-        dream_world: {
-          front_default: '',
-        },
-      },
-    },
-    types: [{ type: { name: '' } }],
-    weight: 1,
-    moves: [
-      {
-        move: {
-          name: '',
-          url: '',
-        },
-      },
-    ],
-    stats: [
-      {
-        base_stat: 0,
-        effort: 0,
-        stat: {
-          name: '',
-          url: '',
-        },
-      },
-    ],
-  };
-
-  describe('When i instance ListComponent without errors', () => {
+  describe('When i instance it', () => {
     beforeEach(async () => {
       TestBed.configureTestingModule({
         declarations: [ListComponent, CardComponent, PokemonFormComponent],
         imports: [HttpClientTestingModule, RouterTestingModule],
-        providers: [RepoPokemonsService, StateService],
+        providers: [StateService, PokemonsService],
       }).compileComponents();
 
       fixture = TestBed.createComponent(ListComponent);
       component = fixture.componentInstance;
-      repoService = TestBed.inject(RepoPokemonsService);
+      pokemonsService = TestBed.inject(PokemonsService);
       stateService = TestBed.inject(StateService);
-
-      spyOn(repoService, 'getAll').and.returnValue(of(mockPokelist));
       spyOn(stateService, 'getPokemonList').and.returnValue(of(mockPokelist));
-      spyOn(repoService, 'get').and.returnValue(of(mockPokemon1));
-
       fixture.detectChanges();
     });
 
@@ -89,25 +45,10 @@ describe('Guiven the class ListComponent', () => {
       expect(component).toBeTruthy();
     });
 
-    it('Then, should call getPokelist and getPokemons on initialization', () => {
-      spyOn(component, 'getPokelist').and.callThrough();
-      spyOn(component, 'getPokemons').and.callThrough();
+    it('Then, should call   getPokemons on initialization', () => {
+      spyOn(pokemonsService, 'getPokelist').and.callThrough();
       component.ngOnInit();
-      expect(component.getPokelist).toHaveBeenCalled();
-      expect(component.getPokemons).toHaveBeenCalled();
-    });
-
-    it('Then, should call getPokelist and update state correctly', () => {
-      spyOn(component, 'getPokemons').and.callThrough();
-      component.getPokelist('');
-      expect(repoService.getAll).toHaveBeenCalled();
-      expect(component.pokeList).toEqual(mockPokelist);
-      expect(component.getPokemons).toHaveBeenCalled();
-    });
-
-    it('Then, should call getPokemons and update pokemons and state correctly', () => {
-      component.getPokemons();
-      expect(repoService.getAll).toHaveBeenCalled();
+      expect(pokemonsService.getPokelist).toHaveBeenCalled();
     });
 
     it('Then, should call onWindowScroll', () => {
@@ -121,56 +62,14 @@ describe('Guiven the class ListComponent', () => {
     });
 
     it('Then, should call onScrollDown', () => {
-      component.pokeList.next = '1';
-      component.onScrollDown();
-      expect(component.showButton).toEqual(false);
-    });
-  });
-  describe('When i instance ListComponent with errors', () => {
-    beforeEach(() => {
-      TestBed.configureTestingModule({
-        declarations: [ListComponent, CardComponent, PokemonFormComponent],
-        imports: [HttpClientTestingModule],
-        providers: [RepoPokemonsService, StateService],
-      }).compileComponents();
-
-      fixture = TestBed.createComponent(ListComponent);
-      component = fixture.componentInstance;
-      repoService = TestBed.inject(RepoPokemonsService);
-      stateService = TestBed.inject(StateService);
-
-      spyOn(repoService, 'getAll').and.returnValue(
-        throwError('Simulated error')
-      );
-
-      fixture.detectChanges();
-    });
-
-    it('Then, should handle errors correctly', () => {
-      const consoleLogSpy = spyOn(console, 'log');
-
-      component.getPokelist('');
-
-      expect(consoleLogSpy).toHaveBeenCalledWith('Simulated error');
-    });
-    it('Then, should handle errors in getPokemons correctly', () => {
-      const consoleLogSpy = spyOn(console, 'log');
-
-      const errorObservable = throwError('Simulated error');
-      spyOn(repoService, 'get').and.returnValue(errorObservable);
-
+      spyOn(pokemonsService, 'getPokelist');
       component.pokeList = {
-        count: 2,
-        next: null,
-        previous: null,
-        results: [
-          { url: 'https://poke-api.co/api/v2/pokemon/1/', name: 'Bulbasaur' },
-        ],
-      };
-
-      component.getPokemons();
-
-      expect(consoleLogSpy).toHaveBeenCalledWith('Simulated error');
+        next: 'https://pokeapi.co/api/v2/pokemon?limit=20&offset=20',
+      } as Pokemons;
+      component.onScrollDown();
+      expect(pokemonsService.getPokelist).toHaveBeenCalledWith(
+        'https://pokeapi.co/api/v2/pokemon?limit=20&offset=20'
+      );
     });
   });
 });

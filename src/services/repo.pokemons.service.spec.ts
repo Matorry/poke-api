@@ -7,17 +7,17 @@ import { TestBed } from '@angular/core/testing';
 import { Ability } from 'src/models/ability';
 import { Pokemon } from 'src/models/pokemon';
 import { Pokemons } from 'src/models/pokemons';
-import { RepoPokemonsServiceService } from './repo.pokemons.service.service';
+import { RepoPokemonsService } from './repo.pokemons.service';
 
 describe('Given the class RepoPokemonsServiceService', () => {
-  let service: RepoPokemonsServiceService;
+  let service: RepoPokemonsService;
   let httpMock: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
     });
-    service = TestBed.inject(RepoPokemonsServiceService);
+    service = TestBed.inject(RepoPokemonsService);
     httpMock = TestBed.inject(HttpTestingController);
   });
   describe('When i instance his methods', () => {

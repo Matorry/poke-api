@@ -3,22 +3,21 @@ import { ActivatedRoute } from '@angular/router';
 import { concat } from 'rxjs';
 import { Ability } from 'src/models/ability';
 import { Pokemon } from 'src/models/pokemon';
-import { RepoPokemonsServiceService } from 'src/services/repo.pokemons.service.service';
+import { RepoPokemonsService } from 'src/services/repo.pokemons.service';
 import { StateService } from 'src/services/state.service';
 
 @Component({
-  selector: 'poke-api-pokemon-detail',
-  templateUrl: './pokemon-detail.component.html',
-  styleUrls: ['./pokemon-detail.component.scss'],
+  selector: 'poke-api-pokemon.detail',
+  templateUrl: './pokemon.detail.component.html',
+  styleUrls: ['./pokemon.detail.component.scss'],
 })
 export class PokemonDetailComponent implements OnInit {
   @Input() isOpen: boolean;
   pokemon: Pokemon | undefined;
   id: string | null;
   modalData!: Ability;
-
   constructor(
-    private repo: RepoPokemonsServiceService,
+    private repo: RepoPokemonsService,
     private stateService: StateService,
     private route: ActivatedRoute
   ) {
@@ -29,7 +28,7 @@ export class PokemonDetailComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.stateService.setIsOpenModal(false);
     if (this.id) {
       this.stateService.getPokemons().subscribe({

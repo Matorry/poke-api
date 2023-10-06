@@ -3,11 +3,11 @@ import { Component, HostListener, Inject, OnInit } from '@angular/core';
 import { forkJoin } from 'rxjs';
 import { Pokemon } from 'src/models/pokemon';
 import { Pokemons } from 'src/models/pokemons';
-import { RepoPokemonsServiceService } from 'src/services/repo.pokemons.service.service';
+import { RepoPokemonsService } from 'src/services/repo.pokemons.service';
 import { StateService } from 'src/services/state.service';
 
 @Component({
-  selector: 'poke-api-app-list',
+  selector: 'poke-api-pokemon.list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
 })
@@ -19,7 +19,7 @@ export class ListComponent implements OnInit {
   constructor(
     @Inject(DOCUMENT)
     private document: Document,
-    private repo: RepoPokemonsServiceService,
+    private repo: RepoPokemonsService,
     private state: StateService
   ) {
     this.pokeList = {} as Pokemons;

@@ -16,7 +16,8 @@
           {{abilitie.ability.name}}
         </li>
       </ul>
-      <span>WEIGHT: {{pokemon.weight}}</span>
+      <span>WEIGHT: {{pokemon.weight}} Kg.</span>
+      <span *ngFor="let stat of pokemon.stats">{{stat.stat.name.toUpperCase()}}: {{stat.base_stat}}</span>
       <select name="moves" #yourMoves (change)="openModal(yourMoves.value)">
         <option disabled="disabled" selected="true">Show pokemon moves</option>
         <option value="{{move.move.url}}" *ngFor="let move of pokemon.moves" option>

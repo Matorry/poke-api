@@ -1,6 +1,7 @@
 <!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
 <!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
 <div class="listContainer" infiniteScroll (scrolled)="onScrollDown()">
-  <poke-api-app-card [pokemons]="pokemons"></poke-api-app-card>
+  <poke-api-pokemon-form></poke-api-pokemon-form>
+  <poke-api-pokemon-card [pokemons]="pokemons"></poke-api-pokemon-card>
   <span class="button" *ngIf="showButton" (click)="onScrollTop()">Up</span>
 </div>

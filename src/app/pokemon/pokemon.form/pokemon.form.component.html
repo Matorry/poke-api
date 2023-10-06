@@ -1,15 +1,15 @@
-<form action="" id="pokeForm">
-  <label for="pokeForm">Pokemon Filter</label>
+<form action="">
+  <label for="pokeTypes">Filter Pokémon</label>
   <div class="container">
     <div class="select">
-      <select name="types" #pokeTypes (change)="(filterPokemonsByType(pokeTypes.value))">
-        <option disabled="disabled" selected="true">Select pokemon type</option>
-        <option value={{null}} option>View All</option>
-        <option value="{{type.url}}" *ngFor="let type of types" option>
-          {{type.name}}</option>
+      <select name="types" id="pokeTypes" aria-label="Select a Pokémon type" #pokeTypes
+        (change)="filterPokemonsByType(pokeTypes.value)">
+        <option disabled selected>Select a Pokémon type</option>
+        <option value="" aria-label="View All Pokémon">View All Pokémon</option>
+        <option *ngFor="let type of types" [value]="type.url">{{type.name}}</option>
       </select>
     </div>
-    <input type="number" placeholder="Filter by id">
-    <input type="text" placeholder="Filter by name">
+    <input type="number" placeholder="Filter by Pokémon ID" aria-label="Filter by Pokémon ID">
+    <input type="text" placeholder="Filter by Pokémon Name" aria-label="Filter by Pokémon Name">
   </div>
 </form>

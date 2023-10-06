@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Ability } from 'src/models/ability';
+import { Ability } from 'src/app/models/ability';
 
-import { Pokemon } from 'src/models/pokemon';
-import { Pokemons } from 'src/models/pokemons';
+import { Pokemon } from 'src/app/models/pokemon';
+import { Pokemons } from 'src/app/models/pokemons';
+import { Types, extendedType } from 'src/app/models/types';
 
 @Injectable({
   providedIn: 'root',
@@ -19,5 +20,14 @@ export class RepoPokemonsService {
   }
   getAbility(url: string): Observable<Ability> {
     return this.http.get(url, {}) as Observable<Ability>;
+  }
+  getTypes(): Observable<Types> {
+    return this.http.get(
+      'https://pokeapi.co/api/v2/type/',
+      {}
+    ) as Observable<Types>;
+  }
+  getType(url: string): Observable<extendedType> {
+    return this.http.get(url, {}) as Observable<extendedType>;
   }
 }

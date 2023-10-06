@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Pokemon } from 'src/models/pokemon';
-import { Pokemons } from 'src/models/pokemons';
+import { Pokemon } from 'src/app/models/pokemon';
+import { Pokemons } from 'src/app/models/pokemons';
 
 @Injectable({
   providedIn: 'root',
@@ -28,8 +28,9 @@ export class StateService {
     return this.isOpenModal$.asObservable();
   }
 
-  setPokemonList(pokemonList: Pokemons) {
-    return this.pokemonList$.next(pokemonList);
+  setPokemonList(pokemonList?: Pokemons) {
+    if (pokemonList) return this.pokemonList$.next(pokemonList);
+    return this.pokemonList$.next({} as Pokemons);
   }
 
   setPokemons(pokemons: Pokemon[]) {

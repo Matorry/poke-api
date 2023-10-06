@@ -7,29 +7,31 @@ import { HeaderComponent } from './core/header/header.component';
 import { CardComponent } from './pokemon/card/card.component';
 import { ListComponent } from './pokemon/list/list.component';
 
-describe('AppComponent', () => {
-  beforeEach(() =>
-    TestBed.configureTestingModule({
-      imports: [RouterTestingModule, HttpClientTestingModule],
-      declarations: [
-        AppComponent,
-        FooterComponent,
-        HeaderComponent,
-        ListComponent,
-        CardComponent,
-      ],
-    })
-  );
+describe('Given the class AppComponent', () => {
+  describe('When i instance it', () => {
+    beforeEach(() =>
+      TestBed.configureTestingModule({
+        imports: [RouterTestingModule, HttpClientTestingModule],
+        declarations: [
+          AppComponent,
+          FooterComponent,
+          HeaderComponent,
+          ListComponent,
+          CardComponent,
+        ],
+      })
+    );
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
+    it('should create the app', () => {
+      const fixture = TestBed.createComponent(AppComponent);
+      const app = fixture.componentInstance;
+      expect(app).toBeTruthy();
+    });
 
-  it(`should have as title 'poke-api'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('poke-api');
+    it(`should have as title 'poke-api'`, () => {
+      const fixture = TestBed.createComponent(AppComponent);
+      const app = fixture.componentInstance;
+      expect(app.title).toEqual('poke-api');
+    });
   });
 });

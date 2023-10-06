@@ -1,8 +1,16 @@
 <ul class="pokeList">
-
   <li *ngFor="let item of pokemons" class="pokemon">
     <a [routerLink]="['/pokemon', item.id]">
-      <img src={{item.sprites.other.dream_world.front_default}} alt="Pokemon photo">
+      <img *ngIf="item.sprites.other.dream_world.front_default" src={{item.sprites.other.dream_world.front_default}}
+        alt="Pokemon photo">
+      <img *ngIf="!item.sprites.other.dream_world.front_default && item.sprites.front_default"
+        src={{item.sprites.front_default}} alt="Pokemon photo">
+      <img
+        *ngIf="!item.sprites.other.dream_world.front_default && !item.sprites.front_default && item.sprites.other.home.front_default"
+        src={{item.sprites.other.home.front_default}} alt="Pokemon photo">
+      <img
+        *ngIf="!item.sprites.other.dream_world.front_default && !item.sprites.front_default && !item.sprites.other.home.front_default && item.sprites.other.official_artwork.front_default"
+        src={{item.sprites.other.official_artwork.front_default}} alt="Pokemon photo">
       <span>{{item.species.name.toUpperCase()}}</span>
       <span>{{item.id}}</span>
       <span class="backCard">#{{item.id}}</span>

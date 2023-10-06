@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { concat } from 'rxjs';
-import { Ability } from 'src/models/ability';
-import { Pokemon } from 'src/models/pokemon';
-import { RepoPokemonsService } from 'src/services/repo.pokemons.service';
-import { StateService } from 'src/services/state.service';
+import { Ability } from 'src/app/models/ability';
+import { Pokemon } from 'src/app/models/pokemon';
+import { RepoPokemonsService } from 'src/app/services/repo.pokemons.service';
+import { StateService } from 'src/app/services/state.service';
 
 @Component({
   selector: 'poke-api-pokemon.detail',

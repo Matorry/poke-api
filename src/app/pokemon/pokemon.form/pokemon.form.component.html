@@ -1,1 +1,12 @@
-<p>pokemon.form works!</p>
+<form action="">
+  <div class="select">
+    <select name="types" #pokeTypes (change)="(filterPokemonsByType(pokeTypes.value))">
+      <option disabled="disabled" selected="true">Select pokemon type</option>
+      <option value={{null}} option>View All</option>
+      <option value="{{type.url}}" *ngFor="let type of types" option>
+        {{type.name}}</option>
+    </select>
+  </div>
+  <input type="number" placeholder="Filter by id">
+  <input type="text" placeholder="Filter by name">
+</form>

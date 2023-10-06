@@ -4,12 +4,12 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ActivatedRoute, convertToParamMap } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of, throwError } from 'rxjs';
-import { Pokemon } from 'src/models/pokemon';
-import { RepoPokemonsService } from 'src/services/repo.pokemons.service';
-import { StateService } from 'src/services/state.service';
+import { Pokemon } from 'src/app/models/pokemon';
+import { RepoPokemonsService } from 'src/app/services/repo.pokemons.service';
+import { StateService } from 'src/app/services/state.service';
 import { PokemonDetailComponent } from './pokemon.detail.component';
 
-describe('Guiven the class PokemonDetailComponent', () => {
+describe('Given the class PokemonDetailComponent', () => {
   let component: PokemonDetailComponent;
   let fixture: ComponentFixture<PokemonDetailComponent>;
   let stateService: StateService;
@@ -46,7 +46,16 @@ describe('Guiven the class PokemonDetailComponent', () => {
             },
             abilities: [],
             sprites: {
+              front_default: '',
               other: {
+                official_artwork: {
+                  front_default: '',
+                  front_shiny: '',
+                },
+                'official-artwork': {
+                  front_default: '',
+                  front_shiny: '',
+                },
                 home: {
                   front_default: '',
                 },

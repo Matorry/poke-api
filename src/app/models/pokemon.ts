@@ -28,7 +28,16 @@ export type Pokemon = {
     name: string;
   };
   sprites: {
+    front_default: string;
     other: {
+      official_artwork: {
+        front_default: string | null;
+        front_shiny: string | null;
+      };
+      'official-artwork': {
+        front_default: string | null;
+        front_shiny: string | null;
+      };
       home: {
         front_default: string;
       };

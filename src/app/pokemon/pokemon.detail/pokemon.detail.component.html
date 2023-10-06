@@ -7,13 +7,6 @@
       <div class="types">
         <span *ngFor="let type of pokemon.types" class={{type.type.name}}>{{type.type.name.toUpperCase()}}</span>
       </div>
-      <div>
-        <span *ngIf="evolution">Evolutions:</span>
-        <img *ngIf="firstEvolution" src={{firstEvolution.sprites.other.dream_world.front_default}}
-          alt={{firstEvolution.species.name}}>
-        <img *ngIf="secondEvolution" src={{secondEvolution.sprites.other.dream_world.front_default}}
-          alt={{secondEvolution.species.name}}>
-      </div>
     </div>
     <div class="pokeInfo">
       <span>NAME: {{pokemon.species.name.toUpperCase()}}</span>

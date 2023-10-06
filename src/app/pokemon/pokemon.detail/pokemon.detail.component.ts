@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { concat } from 'rxjs';
 import { Ability } from 'src/models/ability';
-import { Evolution } from 'src/models/evolution';
 import { Pokemon } from 'src/models/pokemon';
 import { RepoPokemonsService } from 'src/services/repo.pokemons.service';
 import { StateService } from 'src/services/state.service';
@@ -17,18 +16,11 @@ export class PokemonDetailComponent implements OnInit {
   pokemon: Pokemon | undefined;
   id: string | null;
   modalData!: Ability;
-  evolution: Evolution | null;
-  firstEvolution: Pokemon | null;
-  secondEvolution: Pokemon | null;
-
   constructor(
     private repo: RepoPokemonsService,
     private stateService: StateService,
     private route: ActivatedRoute
   ) {
-    this.firstEvolution = null;
-    this.secondEvolution = null;
-    this.evolution = null;
     this.isOpen = false;
     this.id = this.route.snapshot.paramMap.get('id');
     this.stateService.getIsOpenModal().subscribe({
@@ -49,43 +41,11 @@ export class PokemonDetailComponent implements OnInit {
           console.log(response);
         },
       });
-      this.getEvolution();
     }
   }
   openModal(url: string) {
     this.getAbility(url);
     this.stateService.setIsOpenModal(true);
-    console.log(this.evolution);
-  }
-
-  getEvolution() {
-    if (this.id) {
-      const evolutionObserbable = this.repo.getEvolution(this.id);
-      concat(evolutionObserbable).subscribe({
-        next: (resp) => {
-          (this.evolution = resp), this.getPokemonEvolutions();
-        },
-      });
-    }
-  }
-
-  getPokemonEvolutions() {
-    if (this.evolution) {
-      const firstEvolutionObserbable = this.repo.get(
-        this.evolution.chain.evolves_to[0].species.url
-      );
-      concat(firstEvolutionObserbable).subscribe({
-        next: (resp) => (this.firstEvolution = resp),
-        error: (resp) => console.log(resp),
-      });
-      const secondEvolutionObserbable = this.repo.get(
-        this.evolution.chain.evolves_to[0].evolves_to[0].species.url
-      );
-      concat(secondEvolutionObserbable).subscribe({
-        next: (resp) => (this.secondEvolution = resp),
-        error: (resp) => console.log(resp),
-      });
-    }
   }
   getAbility(url: string) {
     const abilityObserbable = this.repo.getAbility(url);

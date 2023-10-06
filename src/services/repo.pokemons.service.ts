@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Ability } from 'src/models/ability';
-import { Evolution } from 'src/models/evolution';
+
 import { Pokemon } from 'src/models/pokemon';
 import { Pokemons } from 'src/models/pokemons';
 
@@ -19,9 +19,5 @@ export class RepoPokemonsService {
   }
   getAbility(url: string): Observable<Ability> {
     return this.http.get(url, {}) as Observable<Ability>;
-  }
-  getEvolution(id: string): Observable<Evolution> {
-    const url = 'https://pokeapi.co/api/v2/evolution-chain/' + id + '/';
-    return this.http.get(url, {}) as Observable<Evolution>;
   }
 }

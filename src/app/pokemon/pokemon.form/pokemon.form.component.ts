@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Type, extendedType } from 'src/app/models/types';
 import { PokemonsService } from 'src/app/services/pokemons.service';
 import { RepoPokemonsService } from 'src/app/services/repo.pokemons.service';
-import { StateService } from 'src/app/services/state.service';
 
 @Component({
   selector: 'poke-api-pokemon-form',
@@ -12,13 +12,15 @@ import { StateService } from 'src/app/services/state.service';
 export class PokemonFormComponent implements OnInit {
   types: Type[] | null;
   type: extendedType | null;
+  error: string | null;
   constructor(
+    private router: Router,
     private repo: RepoPokemonsService,
-    private state: StateService,
     private pokeService: PokemonsService
   ) {
     this.types = null;
     this.type = null;
+    this.error = null;
   }
 
   ngOnInit() {
@@ -42,5 +44,32 @@ export class PokemonFormComponent implements OnInit {
     this.pokeService.getPokelist(
       'https://pokeapi.co/api/v2/pokemon?limit=20&offset=0'
     );
+  }
+
+  filterPokemonsById(id: string) {
+    if (id) {
+      this.repo.getById(id).subscribe({
+        next: (resp) => {
+          this.router.navigate(['pokemon/', resp.id.toString()]);
+        },
+        error: () => (this.error = 'Pokemon not found'),
+      });
+      return;
+    }
+    this.error = 'Insert id';
+  }
+
+  filterPokemonsByName(name: string) {
+    if (name) {
+      const url = ' https://pokeapi.co/api/v2/pokemon/' + name;
+      this.repo.get(url).subscribe({
+        next: (resp) => {
+          this.router.navigate(['pokemon/', resp.id.toString()]);
+        },
+        error: () => (this.error = 'Pokemon not found'),
+      });
+      return;
+    }
+    this.error = 'Insert name';
   }
 }

@@ -31,15 +31,9 @@ export class PokemonDetailComponent implements OnInit {
   ngOnInit() {
     this.stateService.setIsOpenModal(false);
     if (this.id) {
-      this.stateService.getPokemons().subscribe({
-        next: (response: Pokemon[]) => {
-          this.pokemon = response.find(
-            (element) => element.id === Number(this.id)
-          );
-        },
-        error: (response) => {
-          console.log(response);
-        },
+      this.repo.getById(this.id).subscribe({
+        next: (response) => (this.pokemon = response),
+        error: (response) => console.log(response),
       });
     }
   }

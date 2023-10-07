@@ -38,7 +38,9 @@ export class PokemonsService {
 
         forkJoin(pokemonObservables).subscribe({
           next: (pokemons) => {
-            const existingPokemons = new Set(this.pokemons.map((p) => p.id));
+            const existingPokemons = new Set(
+              this.pokemons.map((pokemon) => pokemon.id)
+            );
             pokemons.forEach((pokemon) => {
               if (!existingPokemons.has(pokemon.id)) {
                 this.pokemons.push(pokemon);

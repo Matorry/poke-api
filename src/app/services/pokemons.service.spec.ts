@@ -22,17 +22,17 @@ describe('Given the class PokemonsService', () => {
           {
             provide: RepoPokemonsService,
             useValue: {
-              getAll: (url: string) => of({} as Pokemons), // Mock getAll method
-              get: (url: string) => of({} as Pokemon), // Mock get method
+              getAll: (url: string) => of({} as Pokemons),
+              get: (url: string) => of({} as Pokemon),
             },
           },
           {
             provide: StateService,
             useValue: {
-              getPokemonList: () => of({} as Pokemons), // Mock getPokemonList method
-              setPokemonList: (pokemonList: Pokemons) => {}, // Mock setPokemonList method
-              getPokemons: () => of([] as Pokemon[]), // Mock getPokemons method
-              setPokemons: (pokemons: Pokemon[]) => {}, // Mock setPokemons method
+              getPokemonList: () => of({} as Pokemons),
+              setPokemonList: (pokemonList: Pokemons) => {},
+              getPokemons: () => of([] as Pokemon[]),
+              setPokemons: (pokemons: Pokemon[]) => {},
             },
           },
         ],
@@ -43,7 +43,7 @@ describe('Given the class PokemonsService', () => {
       stateService = TestBed.inject(StateService);
     });
     const mockPokemon = {
-      id: 1,
+      id: 4,
       order: 1,
       species: {
         name: '',
@@ -111,10 +111,28 @@ describe('Given the class PokemonsService', () => {
 
     it('should call getPokemons', () => {
       spyOn(stateService, 'getPokemonList').and.returnValue(
-        of({ results: [{ name: '1' }, { name: '2' }] } as unknown as Pokemons)
+        of({
+          results: [
+            { name: '1', id: 4 },
+            { name: '2', id: 5 },
+          ],
+        } as unknown as Pokemons)
       );
       spyOn(repoPokemonsService, 'get').and.returnValue(of(mockPokemon));
-
+      pokemonsService.pokemons = [
+        {
+          id: 1,
+          sprites: { other: { dream_world: { front_default: '1' } } },
+        } as unknown as Pokemon,
+        {
+          id: 2,
+          sprites: { other: { dream_world: { front_default: '1' } } },
+        } as unknown as Pokemon,
+        {
+          id: 3,
+          sprites: { other: { dream_world: { front_default: '1' } } },
+        } as unknown as Pokemon,
+      ];
       pokemonsService.getPokemons();
 
       expect(stateService.getPokemonList).toHaveBeenCalled();

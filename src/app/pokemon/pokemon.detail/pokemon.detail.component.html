@@ -25,7 +25,7 @@
           {{abilitie.ability.name}}
         </li>
       </ul>
-      <span>WEIGHT: {{pokemon.weight}} Kg.</span>
+      <span>WEIGHT: {{pokemon.weight/10}} Kg.</span>
       <span *ngFor="let stat of pokemon.stats">{{stat.stat.name.toUpperCase()}}: {{stat.base_stat}}</span>
       <select name="moves" #yourMoves (change)="openModal(yourMoves.value)">
         <option disabled="disabled" selected="true">Show pokemon moves</option>

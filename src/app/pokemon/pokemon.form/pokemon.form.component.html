@@ -9,7 +9,18 @@
         <option *ngFor="let type of types" [value]="type.url">{{type.name}}</option>
       </select>
     </div>
-    <input type="number" placeholder="Filter by Pokémon ID" aria-label="Filter by Pokémon ID">
-    <input type="text" placeholder="Filter by Pokémon Name" aria-label="Filter by Pokémon Name">
+    <div class="error-container">
+      <div class="input-container">
+        <input type="number" placeholder="Filter by Pokémon ID" aria-label="Filter by Pokémon ID" #pokemonIdInput>
+        <button type="button" (click)="filterPokemonsById(pokemonIdInput.value)">Search</button>
+      </div>
+    </div>
+    <div class="error-container">
+      <div class="input-container">
+        <input type="text" placeholder="Filter by Pokémon Name" aria-label="Filter by Pokémon Name" #pokemonNameInput>
+        <button type="button" (click)="filterPokemonsByName(pokemonNameInput.value)">Search</button>
+      </div>
+    </div>
   </div>
+  <span *ngIf="error">{{error}}</span>
 </form>

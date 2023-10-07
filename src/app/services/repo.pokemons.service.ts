@@ -21,6 +21,10 @@ export class RepoPokemonsService {
   getAbility(url: string): Observable<Ability> {
     return this.http.get(url, {}) as Observable<Ability>;
   }
+  getById(id: string): Observable<Pokemon> {
+    const url = 'https://pokeapi.co/api/v2/pokemon/' + id;
+    return this.http.get(url, {}) as Observable<Pokemon>;
+  }
   getTypes(): Observable<Types> {
     return this.http.get(
       'https://pokeapi.co/api/v2/type/',

@@ -111,7 +111,13 @@ describe('Given the class PokemonDetailComponent', () => {
     });
 
     it('Then, the component should create', () => {
+      spyOn(repo, 'getById').and.returnValue(
+        of({ id: 1 } as unknown as Pokemon)
+      );
+      component.id = '1';
+      component.ngOnInit();
       expect(component).toBeTruthy();
+      expect(repo.getById).toHaveBeenCalledWith(component.id);
       expect(component.pokemon?.id).toBe(1);
     });
     it('Then, if i use openModal method setIsOpenModal should be called', () => {
@@ -146,14 +152,13 @@ describe('Given the class PokemonDetailComponent', () => {
       stateService = TestBed.inject(StateService);
       repo = TestBed.inject(RepoPokemonsService);
       spyOn(console, 'log');
-      const errorObservable = throwError('Simulated error');
-      spyOn(stateService, 'getPokemons').and.returnValue(errorObservable);
-      spyOn(repo, 'getAbility').and.returnValue(errorObservable);
       fixture.detectChanges();
     });
 
     it('Then, the component should return error', () => {
-      expect(stateService.getPokemons).toHaveBeenCalled();
+      spyOn(repo, 'getById').and.returnValue(throwError('Simulated error'));
+      component.ngOnInit();
+      expect(repo.getById).toHaveBeenCalled();
       expect(console.log).toHaveBeenCalledWith('Simulated error');
     });
   });

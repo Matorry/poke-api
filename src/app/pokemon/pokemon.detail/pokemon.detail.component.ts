@@ -49,8 +49,26 @@ export class PokemonDetailComponent implements OnInit {
         this.modalData.effect_entries = modalResponse.effect_entries.filter(
           (element) => element.language.name === 'en'
         );
+        this.modalData = this.replaceEffect(this.modalData);
       },
     });
+  }
+  replaceEffect(ability: Ability) {
+    if (ability.effect_entries[0].effect.includes('$effect_chance%')) {
+      ability.effect_entries[0].effect =
+        ability.effect_entries[0].effect.replace(
+          '$effect_chance%',
+          ability.effect_chance.toString() + '%'
+        );
+    }
+    if (ability.effect_entries[0].short_effect.includes('$effect_chance%')) {
+      ability.effect_entries[0].short_effect =
+        ability.effect_entries[0].short_effect.replace(
+          '$effect_chance%',
+          ability.effect_chance.toString() + '%'
+        );
+    }
+    return ability;
   }
   closeModal(ev: boolean) {
     this.stateService.setIsOpenModal(ev);

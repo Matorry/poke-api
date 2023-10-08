@@ -1,14 +1,23 @@
-div {
+.buttonContainer {
+  display: flex;
+  flex-direction: row-reverse;
+  .button {
+    display: flex;
+    cursor: pointer;
+  }
+}
+.textContainer {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-}
-.buttonContainer {
-  display: flex;
-  align-items: flex-end;
-  .button {
-    align-self: flex-end;
-    cursor: pointer;
+  span {
+    font-size: 1.1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+  p {
+    padding: 0.5rem;
+    text-align: center;
   }
 }

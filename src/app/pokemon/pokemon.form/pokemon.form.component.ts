@@ -61,7 +61,7 @@ export class PokemonFormComponent implements OnInit {
 
   filterPokemonsByName(name: string) {
     if (name) {
-      const url = ' https://pokeapi.co/api/v2/pokemon/' + name;
+      const url = ' https://pokeapi.co/api/v2/pokemon/' + name.toLowerCase();
       this.repo.get(url).subscribe({
         next: (resp) => {
           this.router.navigate(['pokemon/', resp.id.toString()]);

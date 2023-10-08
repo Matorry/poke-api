@@ -92,14 +92,15 @@ describe('Given the class PokemonDetailComponent', () => {
       spyOn(stateService, 'setIsOpenModal');
       spyOn(repo, 'getAbility').and.returnValue(
         of({
+          effect_chance: 1,
           effect_entries: [
             {
-              effect: '',
+              effect: 'a $effect_chance% a',
               language: {
-                name: '',
+                name: 'en',
                 url: '',
               },
-              short_effect: '',
+              short_effect: 'a $effect_chance% a',
             },
           ],
           id: 1,

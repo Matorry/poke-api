@@ -5,18 +5,9 @@
   flex-direction: column;
   padding-top: 5rem;
   padding-bottom: 10rem;
-  .buttonContainer {
-    padding-bottom: 4vw;
-    padding-top: 4vw;
-    gap: 10vw;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    button {
-      width: 10vw;
-      height: 3vh;
-    }
+  gap: 3rem;
+  poke-api-pokemon-form {
+    padding-top: 3rem;
   }
 }
 .button {

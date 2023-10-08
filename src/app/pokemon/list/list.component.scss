@@ -21,15 +21,46 @@
 }
 .button {
   position: fixed;
-  left: 95%;
+  left: 83%;
   top: 88%;
   text-decoration: none;
   color: black;
   background-color: #f7f7f7;
   box-shadow: 0 0 3rem -1rem rgba(0, 0, 0, 0.25);
   border-radius: 20px;
-  font-size: 2rem;
+  font-size: 1rem;
   padding: 1rem;
   border: 1px solid black;
   cursor: pointer;
+}
+
+@media (min-width: 374px) {
+  .button {
+    left: 84%;
+  }
+}
+
+@media (min-width: 767px) {
+  .button {
+    left: 90%;
+    font-size: 1.5rem;
+  }
+}
+@media (min-width: 1023px) {
+  .button {
+    left: 91%;
+    font-size: 2rem;
+  }
+}
+@media (min-width: 1439px) {
+  .button {
+    left: 94.5%;
+    font-size: 2rem;
+  }
+}
+@media (min-width: 1700px) {
+  .button {
+    left: 95%;
+    font-size: 2rem;
+  }
 }

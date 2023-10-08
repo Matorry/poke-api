@@ -5,12 +5,13 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  gap: 1vh;
   .card {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: row;
+    flex-direction: column;
     background-color: #f7f7f7;
     box-shadow: 0 0 3rem -1rem rgba(0, 0, 0, 0.25);
     border: 1px solid black;
@@ -28,15 +29,17 @@
         gap: 1rem;
       }
       img {
-        height: 20vw;
-        width: 20vw;
+        height: 60vw;
+        width: 60vw;
+        max-height: 210px;
+        max-width: 210px;
         padding-bottom: 2rem;
       }
     }
     .pokeInfo {
       padding: 1rem;
       align-items: flex-start;
-      gap: 2rem;
+      gap: 1rem;
       ul {
         gap: 1rem;
         li {
@@ -48,7 +51,7 @@
     }
     poke-api-modal {
       position: absolute;
-      right: 40%;
+      right: 20%;
       width: 60%;
       padding: 5%;
       height: auto;
@@ -62,9 +65,6 @@
     }
   }
   .button {
-    position: absolute;
-    left: 95%;
-    top: 88%;
     text-decoration: none;
     color: black;
     background-color: #f7f7f7;
@@ -75,6 +75,47 @@
     border: 1px solid black;
   }
 }
+
+@media (min-width: 767px) {
+  .cardContainer {
+    gap: 0px;
+    .card {
+      flex-direction: row;
+      div {
+        img {
+          height: 20vw;
+          width: 20vw;
+          max-height: none;
+          max-width: none;
+          padding-bottom: 2rem;
+        }
+      }
+      poke-api-modal {
+        right: 40%;
+      }
+    }
+    .button {
+      position: absolute;
+      left: 85%;
+      top: 88%;
+    }
+  }
+}
+@media (min-width: 1023px) {
+  .cardContainer {
+    .button {
+      left: 90%;
+    }
+  }
+}
+@media (min-width: 2559px) {
+  .cardContainer {
+    .button {
+      left: 95%;
+    }
+  }
+}
+
 .normal {
   padding: 0.5rem;
   border-radius: 10px;

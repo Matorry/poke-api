@@ -11,7 +11,8 @@ form {
 
   .container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    align-items: center;
     gap: 3rem;
 
     .select {
@@ -45,5 +46,13 @@ form {
   span {
     color: red;
     margin-top: 1rem;
+  }
+}
+
+@media (min-width: 767px) {
+  form {
+    .container {
+      flex-direction: row;
+    }
   }
 }

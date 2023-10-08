@@ -80,6 +80,8 @@
 
 @media (min-width: 767px) {
   .cardContainer {
+    margin-top: 0rem;
+    margin-bottom: 0rem;
     gap: 0px;
     .card {
       flex-direction: row;
@@ -99,7 +101,7 @@
     .button {
       position: absolute;
       left: 85%;
-      top: 105%;
+      top: 88%;
     }
   }
 }

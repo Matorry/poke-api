@@ -8,7 +8,6 @@ form {
   label {
     padding-bottom: 3rem;
   }
-
   .container {
     display: flex;
     flex-direction: column;
@@ -21,22 +20,18 @@ form {
         width: 170px;
       }
     }
-
     .error-container {
       display: flex;
       align-items: center;
       justify-content: center;
       flex-direction: column;
-
       .input-container {
         display: flex;
         gap: 0.4rem;
-
         input {
           padding: 0.3rem;
           width: 170px;
         }
-
         button {
           padding: 0.3rem;
         }

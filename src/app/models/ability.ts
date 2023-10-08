@@ -12,4 +12,5 @@ export type Ability = {
   id: number;
   is_main_series: boolean;
   name: string;
+  effect_chance: number;
 };
